@@ -1,12 +1,9 @@
 {
-  "name": "@makis-san/electron-mc-auth",
+  "name": "electron-mc-auth",
   "version": "0.0.1",
   "main": "electron/main.js",
   "license": "MIT",
   "repository": "git@github.com:makis-san/electron-mc-auth.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/electron": "^1.6.10",
