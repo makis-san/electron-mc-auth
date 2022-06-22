@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ESNext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "allowJs": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "removeComments": true
   },
-  "exclude": ["node_modules", "old", "src/auth/*.ts", "src/gui/*.ts"],
-  "include": ["electron", "./electron/**/*", "src"]
+  "exclude": ["node_modules"],
+  "include": ["./electron/**/*.ts", "./src/**/*.ts"]
 }

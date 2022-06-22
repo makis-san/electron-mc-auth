@@ -1,6 +1,6 @@
 import { BrowserWindow, app } from "electron";
-import path from "path";
-import Gui from "../src/gui/Gui";
+import { join } from "path";
+import { Auth } from "../src";
 
 const createWindow = () => {
   // Create the browser window.
@@ -8,7 +8,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload.js"),
     },
   });
 
@@ -24,7 +24,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   console.log("Testing Electron. This should test most of the underlying code");
-  Gui();
+  Auth();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
