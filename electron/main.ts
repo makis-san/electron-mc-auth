@@ -29,8 +29,12 @@ app.whenReady().then(() => {
   const window = createWindow();
   const authenticate = async () => {
     const auth = await Auth();
+    if (!auth) return console.warn("Failed at auth");
+
     console.log(auth);
     const refreshData = await refresh(auth);
+
+    if (!refresh) return console.warn("Failed at refresh");
     console.log("refresh", refreshData);
 
     dialog.showMessageBox({
