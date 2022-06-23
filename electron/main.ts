@@ -1,19 +1,23 @@
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, dialog, ipcMain } from "electron";
 import { join } from "path";
-import { Auth } from "../src";
+import { Auth, refresh } from "../src";
 
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+
     webPreferences: {
+      nodeIntegration: false,
       preload: join(__dirname, "preload.js"),
     },
   });
 
   // and load the index.html of the app.
+  mainWindow.webContents.openDevTools();
   mainWindow.loadFile("index.html");
+  return mainWindow;
 };
 
 // Open the DevTools.
@@ -22,9 +26,20 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow();
-  console.log("Testing Electron. This should test most of the underlying code");
-  Auth();
+  const window = createWindow();
+  const authenticate = async () => {
+    const auth = await Auth();
+    console.log(auth);
+    const refreshData = await refresh(auth);
+    console.log("refresh", refreshData);
+
+    dialog.showMessageBox({
+      message: `
+      Logged as: ${auth.name}
+    `,
+    });
+  };
+  authenticate();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

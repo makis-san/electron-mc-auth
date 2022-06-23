@@ -1,8 +1,8 @@
 import axios from "axios";
 import { URLSearchParams } from "url";
-import { MicrosoftToken } from "../Auth.types";
+import { MicrosoftAuthToken, MicrosoftToken } from "../Auth.types";
 import { MinecraftProfileTypes } from "../Mojang.types";
-import { xAuth } from "./xbox/xBoxAuth";
+import { getMinecraft } from "./getMinecraft";
 
 export const login = async (
   token: MicrosoftToken,
@@ -17,65 +17,17 @@ export const login = async (
   params.append("redirect_uri", token.redirect);
 
   const Microsoft = await axios
-    .post("https://login.live.com/oauth20_token.srf?", params, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    })
+    .post<MicrosoftAuthToken>(
+      "https://login.live.com/oauth20_token.srf?",
+      params,
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }
+    )
     .then((data) => data.data)
     .catch(() => console.warn("CatchOn: MICROSOFT"));
 
-  const XboxLive = await axios
-    .post(
-      "https://user.auth.xboxlive.com/user/authenticate",
-      {
-        Properties: {
-          AuthMethod: "RPS",
-          SiteName: "user.auth.xboxlive.com",
-          RpsTicket: `d=${Microsoft.access_token}`, // your access token from step 2 here
-        },
-        RelyingParty: "http://auth.xboxlive.com",
-        TokenType: "JWT",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    )
-    .then((data) => data.data)
-    .catch(() => console.warn("CatchOn: XBOXLIVE"));
-  const xAuthToken = await xAuth(XboxLive.Token);
+  if (!Microsoft) return;
 
-  const MCAuth = await axios
-    .post(
-      "https://api.minecraftservices.com/authentication/login_with_xbox",
-      {
-        identityToken: xAuthToken,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    )
-    .then((data) => data.data)
-    .catch(() => console.warn("CatchOn: MCAUTH"));
-
-  return axios
-    .get<MinecraftProfileTypes>(
-      "https://api.minecraftservices.com/minecraft/profile",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${MCAuth.access_token}`,
-        },
-      }
-    )
-    .then((data) => ({
-      access_token: Microsoft.access_token,
-      client_token: XboxLive.client_token,
-      ...data.data,
-    }));
+  return getMinecraft(token, Microsoft);
 };

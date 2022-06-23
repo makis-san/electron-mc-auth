@@ -1,3 +1,5 @@
+import { MicrosoftToken } from "./Auth.types";
+
 export type PromptTypes = "login" | "none" | "consent" | "select_account";
 
 export interface MinecraftSkinTypes {
@@ -12,13 +14,15 @@ export interface MinecraftCapeTypes {
   url: string;
   alias: string;
 }
-export interface MinecraftProfileTypes {
+export interface MinecraftProfileTypes extends MicrosoftToken {
   id: string;
   name: string;
   skins: MinecraftSkinTypes[];
   capes: MinecraftCapeTypes[];
   access_token: string;
-  client_token;
+  refresh_token: string;
+  client_token: string;
+  expires_in: number;
 }
 
 export interface MCLCAuthTypes {

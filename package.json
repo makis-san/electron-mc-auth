@@ -34,8 +34,8 @@
     "electron": "^19.0.5"
   },
   "scripts": {
-    "start": "tsc ./electron/*.ts && electron .",
-    "build": "./node_modules/.bin/tsc -p tsconfig.json --declaration"
+    "start": "tsc electron/*.ts && electron ./electron/main.js",
+    "build": "tsc -p tsconfig.json --declaration"
   },
   "dependencies": {}
 }

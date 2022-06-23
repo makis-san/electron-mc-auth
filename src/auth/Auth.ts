@@ -1,10 +1,11 @@
 import axios from "axios";
 import { BrowserWindow } from "electron";
 import * as Auth from "./libs";
+import { MinecraftProfileTypes } from "./Mojang.types";
 
 export default async () => {
   const { url, token } = Auth.getLink("select_account");
-  const code = await new Promise<string>(async (resolve, reject) => {
+  return await new Promise<MinecraftProfileTypes>(async (resolve, reject) => {
     const mainWindow = new BrowserWindow({
       width: 500,
       height: 650,
@@ -27,7 +28,10 @@ export default async () => {
           loc.substr(loc.indexOf("?") + 1)
         ).get("code");
         if (urlParams) {
-          resolve(urlParams);
+          mainWindow.close();
+          Auth.login(token, urlParams).then((result) => {
+            resolve(result);
+          });
           loading = true;
           return urlParams;
         }
@@ -39,6 +43,5 @@ export default async () => {
       }
     });
   });
-
-  return Auth.login(token, code);
+  return;
 };
