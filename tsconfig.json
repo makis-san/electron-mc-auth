@@ -6,12 +6,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    "outDir": "dist",
+    "outDir": "dist/",
     "allowJs": true,
     "importHelpers": true,
     "esModuleInterop": true,
-    "removeComments": true
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "declaration": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "electron"],
   "include": ["./electron/**/*.ts", "./src/**/*.ts"]
 }
