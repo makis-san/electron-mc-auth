@@ -1,6 +1,6 @@
 {
   "name": "electron-mc-auth",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
@@ -35,7 +35,8 @@
   },
   "scripts": {
     "start": "tsc electron/*.ts && electron ./electron/main.js",
-    "build": "tsc -p tsconfig.json --declaration"
+    "build": "tsc -p tsconfig.json --declaration",
+    "package": "yarn build && npm publish"
   },
   "dependencies": {}
 }
