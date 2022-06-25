@@ -61,16 +61,16 @@ Here's an example on the main file of electron.
 // /main.ts
 
 app.whenReady().then(() => {
+  createWindow()
   const authenticate = async () => {
-    const auth = await useMcuseMcAuth().launch()
+    const { launch, refresh } = useMcAuth({...})
+    const auth = await launch()
 
     if (!auth) return
 
-    console.log(auth)
     const refreshData = await refresh(auth)
 
     if (!refresh) return
-    console.log('refresh', refreshData)
 
     dialog.showMessageBox({
       message: `
@@ -78,11 +78,9 @@ app.whenReady().then(() => {
     `
     })
 
-    return
+    return true
   }
   authenticate()
-
-  ...
 })
 ```
 
