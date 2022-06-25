@@ -1,10 +1,11 @@
 import { BrowserWindow } from 'electron'
 import { MicrosoftToken } from '../Auth.types'
 import { MinecraftProfileTypes } from '../Mojang.types'
-import * as Auth from '.'
+import getLibs from '.'
 
 export async function launch(url: string, token: MicrosoftToken) {
   return new Promise<MinecraftProfileTypes>(async (resolve, reject) => {
+    const { login } = getLibs(this.logger)
     const mainWindow = new BrowserWindow({
       width: 500,
       height: 650,
@@ -32,7 +33,7 @@ export async function launch(url: string, token: MicrosoftToken) {
         if (urlParams) {
           loading = true
           mainWindow.hide()
-          Auth.login(token, urlParams)
+          login(token, urlParams)
             .then((result) => {
               resolve(result)
               mainWindow.close()
