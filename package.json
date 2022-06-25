@@ -1,6 +1,6 @@
 {
   "name": "electron-mc-auth",
-  "version": "0.1.0",
+  "version": "0.1.2-1",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
@@ -27,16 +27,27 @@
     "@types/electron": "^1.6.10",
     "@types/node": "^18.0.0",
     "@types/typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "axios": "^0.27.2",
+    "chalk": "4.1.2",
+    "electron": "^19.0.5",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.7.1",
     "ts-node": "^10.8.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "axios": "^0.27.2",
-    "electron": "^19.0.5"
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "start": "tsc electron/*.ts && electron ./electron/main.js",
     "build": "tsc -p tsconfig.json --declaration",
-    "package": "yarn build && npm publish"
+    "package": "yarn build && npm publish",
+    "lint": "eslint src/**/*.{js, ts, tsx} --no-error-on-unmatched-pattern",
+    "lint-fix": "eslint src/**/*.{js, ts, tsx} --fix --no-error-on-unmatched-pattern"
   },
   "dependencies": {}
 }

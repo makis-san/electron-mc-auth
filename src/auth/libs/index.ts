@@ -1,7 +1,19 @@
-export { getLink } from "./getLink";
-export { login } from "./login";
-export { getMCLC } from "./mclc/getMCLC";
-export { xAuth } from "./xbox/xBoxAuth";
-export { refresh } from "./refresh";
-export { validate } from "./validate";
-export { getMinecraft } from "./getMinecraft";
+import { getLink } from './getLink'
+import { login } from './login'
+import { getMCLC } from './mclc/getMCLC'
+import { xAuth } from './xbox/xBoxAuth'
+import { refresh } from './refresh'
+import { validate } from './validate'
+import { getMinecraft } from './getMinecraft'
+import { launch } from './launch'
+
+export {
+  getLink,
+  login,
+  getMCLC,
+  xAuth,
+  refresh,
+  validate,
+  getMinecraft,
+  launch
+}

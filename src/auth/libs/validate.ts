@@ -1,1 +1,3 @@
-export const validate = (expiration: number) => expiration > Date.now();
+export function validate(expiration: number) {
+  return expiration > Date.now()
+}

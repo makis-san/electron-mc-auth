@@ -10,9 +10,11 @@
     "allowJs": true,
     "importHelpers": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "removeComments": true,
-    "declaration": true
+    "declaration": true,
+    "rootDir": "src"
   },
   "exclude": ["node_modules", "electron"],
   "include": ["./electron/**/*.ts", "./src/**/*.ts"]

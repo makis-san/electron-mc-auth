@@ -1,54 +1,31 @@
-import axios from "axios";
-import { BrowserWindow } from "electron";
-import * as Auth from "./libs";
-import { MinecraftProfileTypes } from "./Mojang.types";
+import { Logger } from '../Logger/Logger'
+import { LoggerCallBackTypes } from '../Logger/Logger.types'
+import * as Libs from './libs'
 
-export default async () => {
-  const { url, token } = Auth.getLink("select_account");
-  return await new Promise<MinecraftProfileTypes>(async (resolve, reject) => {
-    const mainWindow = new BrowserWindow({
-      width: 500,
-      height: 650,
-      resizable: false,
-      title: "Login with Microsoft Account",
-    });
-    mainWindow.setMenu(null);
-    mainWindow.loadURL(url);
-    const contents = mainWindow.webContents;
-    var loading = false;
-    mainWindow.on("close", () => {
-      if (!loading) {
-        reject("error.gui.closed");
-      }
-    });
-    contents.on("did-finish-load", () => {
-      const loc = contents.getURL();
-      if (loc.startsWith(token.redirect)) {
-        const urlParams = new URLSearchParams(
-          loc.substring(loc.indexOf("?") + 1)
-        ).get("code");
+type LibsTypes = typeof Libs
 
-        if (urlParams) {
-          loading = true;
-          mainWindow.hide();
-          Auth.login(token, urlParams)
-            .then((result) => {
-              resolve(result);
-              mainWindow.close();
+export default (
+  logCallback: LoggerCallBackTypes = {
+    onError: (message) => Error(message)
+  }
+) => {
+  const logger = Logger(logCallback)
+  const libs: LibsTypes = Object.keys(Libs).reduce(
+    (acc: LibsTypes, cur: keyof LibsTypes) => ({
+      ...acc,
+      ...(typeof Libs[cur] === 'function'
+        ? {
+            [cur]: Libs[cur].bind({
+              logger
             })
-            .catch(() => {
-              mainWindow.show();
-              mainWindow.loadURL(url);
-            });
-          return urlParams;
-        }
-        try {
-          mainWindow.close();
-        } catch {
-          console.error("[MC-AUTH]: Failed to close window!");
-        }
-      }
-    });
-  });
-  return;
-};
+          }
+        : { [cur]: Libs[cur] })
+    }),
+    {} as LibsTypes
+  )
+  const { url, token } = libs.getLink('select_account')
+  return {
+    ...libs,
+    launch: () => libs.launch(url, token)
+  }
+}
