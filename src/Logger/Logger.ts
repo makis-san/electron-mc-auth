@@ -1,5 +1,10 @@
 import * as chalk from 'chalk'
-import { LogFunctionTypes, LoggerCallBackTypes } from './Logger.types'
+import {
+  LogFunctionTypes,
+  LoggerCallbackFunction,
+  LoggerCallBackTypes,
+  LoggerTypes
+} from './Logger.types'
 
 export const LoggingColors = {
   error: 'bgRed',
@@ -8,7 +13,7 @@ export const LoggingColors = {
   log: 'bgGray'
 }
 
-export const LoggingCallback = (
+export const LoggingCallback: LoggerCallbackFunction = (
   message: string,
   logType: 'error' | 'info' | 'warn' | 'log',
   callback?: LogFunctionTypes
@@ -18,7 +23,7 @@ export const LoggingCallback = (
   if (callback) return callback(message)
 }
 
-export const Logger = (callback?: LoggerCallBackTypes) => ({
+export const Logger = (callback?: LoggerCallBackTypes): LoggerTypes => ({
   error: (message: string) =>
     LoggingCallback(message, 'error', callback?.onError),
   info: (message: string) => LoggingCallback(message, 'info', callback?.onInfo),

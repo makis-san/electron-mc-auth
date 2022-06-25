@@ -17,11 +17,11 @@ export type LoggerCallbackFunction = (
   message: string,
   logType: 'error' | 'info' | 'warn' | 'log',
   callback?: LogFunctionTypes
-) => void
+) => void | LoggerCallbackFunction
 
 export interface LoggerTypes {
-  error: (message: string) => LoggerCallbackFunction
-  info: (message: string) => LoggerCallbackFunction
-  warn: (message: string) => LoggerCallbackFunction
-  log: (message: string) => LoggerCallbackFunction
+  error: (message: string) => LoggerCallbackFunction | void
+  info: (message: string) => LoggerCallbackFunction | void
+  warn: (message: string) => LoggerCallbackFunction | void
+  log: (message: string) => LoggerCallbackFunction | void
 }
