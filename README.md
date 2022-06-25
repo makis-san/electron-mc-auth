@@ -12,7 +12,7 @@ Display an electronJs window to authenticate Minecraft accounts through Xbox Liv
   
 ***
   
-[Getting started](/#getting-started) | [MCLC](/#mclc) | [Contribuittions](/#)
+[Getting started](#getting-started) | [MCLC](#mclc) | [Contribuittions](/#)
 
 </div>
 
