@@ -25,14 +25,21 @@ export default async () => {
       const loc = contents.getURL();
       if (loc.startsWith(token.redirect)) {
         const urlParams = new URLSearchParams(
-          loc.substr(loc.indexOf("?") + 1)
+          loc.substring(loc.indexOf("?") + 1)
         ).get("code");
+
         if (urlParams) {
-          mainWindow.close();
-          Auth.login(token, urlParams).then((result) => {
-            resolve(result);
-          });
           loading = true;
+          mainWindow.hide();
+          Auth.login(token, urlParams)
+            .then((result) => {
+              resolve(result);
+              mainWindow.close();
+            })
+            .catch(() => {
+              mainWindow.show();
+              mainWindow.loadURL(url);
+            });
           return urlParams;
         }
         try {
