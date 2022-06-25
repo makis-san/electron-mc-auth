@@ -11,7 +11,7 @@ Display an electronJs window to authenticate Minecraft accounts through Xbox Liv
   </a>
   <img src="https://img.shields.io/github/license/makis-san/electron-mc-auth?style=for-the-badge" alt="license"/>
   <a href="https://ko-fi.com/F1F63DAEF" targe="_BLANK">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi"/>
+    <img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="ko-fi"/>
   </a>
 </div> 
   
