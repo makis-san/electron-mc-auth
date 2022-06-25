@@ -2,7 +2,6 @@ import axios from 'axios'
 import { URLSearchParams } from 'url'
 import { MicrosoftAuthToken, MicrosoftToken } from '../Auth.types'
 import { MinecraftProfileTypes } from '../Mojang.types'
-import { getMinecraft } from './getMinecraft'
 
 export async function login(
   token: MicrosoftToken,
@@ -29,5 +28,5 @@ export async function login(
 
   if (!Microsoft) return
 
-  return getMinecraft(token, Microsoft)
+  return this.getMinecraft(token, Microsoft)
 }

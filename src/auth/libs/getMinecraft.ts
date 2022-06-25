@@ -1,13 +1,12 @@
 import axios from 'axios'
 import { MicrosoftAuthToken, MicrosoftToken } from '../Auth.types'
 import { MinecraftProfileTypes } from '../Mojang.types'
-import { xAuth } from './xbox/xBoxAuth'
 
 export async function getMinecraft(
   token: MicrosoftToken,
   Microsoft: MicrosoftAuthToken
 ) {
-  const { xBoxLiveToken, xAuthToken } = await xAuth(Microsoft)
+  const { xBoxLiveToken, xAuthToken } = await this.xAuth(Microsoft)
 
   if (!xAuthToken) return
 

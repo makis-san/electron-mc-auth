@@ -1,4 +1,3 @@
-import Auth from './auth/Auth'
-import getLibs from './auth/libs'
+import useMcAuth from './auth/useMcAuth'
 
-export { Auth, getLibs }
+export { useMcAuth }

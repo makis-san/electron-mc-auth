@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import { BrowserWindow, app, dialog } from 'electron'
 import { join } from 'path'
-import { Auth, refresh } from '../src'
+import { useMcAuth } from '../src'
 
 const createWindow = () => {
   // Create the browser window.
@@ -30,7 +30,10 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow()
   const authenticate = async () => {
-    const auth = await Auth().launch()
+    const { launch, refresh } = useMcAuth({
+      onError: (msg) => console.log(`Error - ${msg}`)
+    })
+    const auth = await launch()
 
     if (!auth) return console.warn('Failed at auth')
 
