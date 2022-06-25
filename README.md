@@ -6,13 +6,13 @@ Display an electronJs window to authenticate Minecraft accounts through Xbox Liv
 ---
 
 <div  style="display:flex;justify-content:center;text-align: center; margin-top:1.25rem;">
-<img src="https://img.shields.io/npm/v/electron-mc-auth?style=for-the-badge" alt="version"/>
+<a href="https://www.npmjs.com/package/electron-mc-auth" targe="_BLANK"><img src="https://img.shields.io/npm/v/electron-mc-auth?style=for-the-badge" alt="version"/></a>
 <img src="https://img.shields.io/github/license/makis-san/electron-mc-auth?style=for-the-badge" alt="license"/>
 </div> 
   
 ***
   
-[Getting started](/#) | [MCLC](/#) | [Contribuittions](/#)
+[Getting started](/#getting-started) | [MCLC](/#mclc) | [Contribuittions](/#)
 
 </div>
 
