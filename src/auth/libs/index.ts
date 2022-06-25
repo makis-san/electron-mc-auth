@@ -1,5 +1,3 @@
-export { Logger } from '../../Logger/Logger'
-export { LoggerCallBackTypes } from '../../Logger/Logger.types'
 export { getLink } from './getLink'
 export { login } from './login'
 export { getMCLC } from './mclc/getMCLC'

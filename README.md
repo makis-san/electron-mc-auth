@@ -37,23 +37,23 @@ npm install electron-mc-auth
 
 First of all, prefer to run the package code on the back-end side of the electron. So the documentation will only refer directly to the main.ts file.
 
-### Auth()
+### useMcuseMcAuth()
 
 To use the package authentication system, you need to instatiate the Auth function.
 
 ```ts
 import { Auth } from 'electron-mc-auth'
 
-const mcAuth = Auth()
+const mcAuth = useMcuseMcAuth()
 ```
 
 This function should return an object containing all package functions with the predefined configuration passed on it initialization.
 
-There are some functions that you can import directly, but, to start the auth flow, you should use launch() function that is returned by the Auth() function.
+There are some functions that you can import directly, but, to start the auth flow, you should use launch() function that is returned by the useMcuseMcAuth() function.
 
 ### Starting the auth flow
 
-It's pretty straightfoward, just use the launch() function provided by the Auth() function and it will handle the Window creation and network requests to get you authenticated and reuturn the MinecraftProfile object.
+It's pretty straightfoward, just use the launch() function provided by the useMcuseMcAuth() function and it will handle the Window creation and network requests to get you authenticated and reuturn the MinecraftProfile object.
 
 Here's an example on the main file of electron.
 
@@ -62,7 +62,7 @@ Here's an example on the main file of electron.
 
 app.whenReady().then(() => {
   const authenticate = async () => {
-    const auth = await Auth().launch()
+    const auth = await useMcuseMcAuth().launch()
 
     if (!auth) return
 
@@ -119,7 +119,7 @@ export interface MinecraftProfileTypes {
 
 Also, the package can convert its object to be compatible with [MCLC](https://www.npmjs.com/package/minecraft-launcher-core) package.
 
-To do this, just pass your Minecraft Profile object to the getMCLC function.
+To do this, just pass your Minecraft Profile object to the `getMCLC()` function.
 
 ```ts
 function getMCLC(profile: MinecraftProfileTypes): MCLCAuthTypes
@@ -129,24 +129,15 @@ function getMCLC(profile: MinecraftProfileTypes): MCLCAuthTypes
 
 You can pass your preffered callback for `onError`, `onInfo`, `onWarn`, `onLog` events
 
-Example using default Auth() function.
+Example using default `useMcAuth()` function.
 
 ```ts
-const mcAuth = Auth({
-  onError: (msg) => {
-    return msg
-  }
-})
-```
-
-Example using Libs
-
-```ts
-const { refresh } = getLibs({
-  onError: (msg) => {
-    return msg
-  }
-})
+const { launch, getLink, login, getMCLC, refresh, validate, getMinecraft } =
+  useMcAuth({
+    onError: (msg) => {
+      return msg
+    }
+  })
 ```
 
 Here's the type definition for the callback;
